@@ -12,6 +12,7 @@ import com.intellij.execution.configurations.RuntimeConfigurationWarning
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.util.JavaParametersUtil
 import com.intellij.execution.util.ProgramParametersUtil
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.options.SettingsEditorGroup
 import com.intellij.openapi.project.Project
@@ -69,9 +70,11 @@ class TornadoFXConfiguration(project: Project, factory: ConfigurationFactory, na
 
             if (RUN_TYPE == RunType.View) {
                 params.programParametersList.add("--view-class=$viewClassName")
-                val isInProdSources = JavaParametersUtil.isClassInProductionSources(viewClassName!!, configurationModule.module!!)!!
-                if (!isInProdSources) {
-                    params.configureByModule(configurationModule.module, JavaParameters.JDK_AND_CLASSES_AND_TESTS)
+                ApplicationManager.getApplication().runWriteAction {
+                    val isInProdSources = JavaParametersUtil.isClassInProductionSources(viewClassName!!, configurationModule.module!!)!!
+                    if (!isInProdSources) {
+                        params.configureByModule(configurationModule.module, JavaParameters.JDK_AND_CLASSES_AND_TESTS)
+                    }
                 }
             }
 

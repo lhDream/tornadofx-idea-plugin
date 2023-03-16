@@ -11,10 +11,12 @@ class TornadoFXFacetConfiguration : FacetConfiguration, Disposable {
     override fun createEditorTabs(editorContext: FacetEditorContext, validatorsManager: FacetValidatorsManager) =
         arrayOf(TornadoFXFacetEditorTab(editorContext))
 
+    @Deprecated("Deprecated in Java")
     override fun readExternal(element: Element?) {
 
     }
 
+    @Deprecated("Deprecated in Java")
     override fun writeExternal(element: Element?) {
     }
 

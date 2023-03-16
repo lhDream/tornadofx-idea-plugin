@@ -31,7 +31,9 @@ class TranslationManager {
      */
     fun isMessageExpression(expression: KtArrayAccessExpression): Boolean {
         val array = expression.arrayExpression ?: return false
-        val fqName = array.mainReference?.resolve()?.getKotlinFqName() ?: return false
+        val fqName = array.mainReference
+            ?.resolve()
+            ?.getKotlinFqName() ?: return false
 
         return fqName.toString() == "tornadofx.Component.messages"
     }

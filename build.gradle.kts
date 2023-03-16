@@ -1,12 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.intellij.tasks.PatchPluginXmlTask
-import org.jetbrains.intellij.tasks.PublishTask
 
 plugins {
     idea
     java
-    kotlin("jvm") version "1.4.32"
-    id("org.jetbrains.intellij") version "0.7.3"
+    kotlin("jvm") version "1.6.20"
+    id("org.jetbrains.intellij") version "1.5.2"
 }
 
 group = "no.tornado"
@@ -20,21 +18,21 @@ repositories {
 }
 
 intellij {
-    version = "2021.1.1"
-    //updateSinceUntilBuild = false
-    setPlugins("java", "properties", "Kotlin", "com.intellij.javafx:1.0.3")
+    version.set("2021.2")
+    type.set("IC") // Target IDE Platform
+    plugins.set(listOf("java", "properties", "Kotlin", "com.intellij.javafx:1.0.3"))
 }
 
 tasks {
     patchPluginXml {
-         version(project.version)
-         sinceBuild("203")
-         untilBuild("")
+        version.set(project.version.toString())
+        sinceBuild.set("203")
+        untilBuild.set("")
      }
 
      publishPlugin {
-        username(publishUsername)
-        password(publishPassword)
+//        username(publishUsername)
+//        password(publishPassword)
     }
 
     withType<KotlinCompile> {
